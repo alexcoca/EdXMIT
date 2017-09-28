@@ -17,11 +17,17 @@ def balanceCalc(balance,annualInterestRate,monthlyPayment,month):
         return balanceCalc(round(balance-monthlyPayment+(annualInterestRate/12)*(balance-monthlyPayment),2),annualInterestRate,monthlyPayment,month)
 
 
+
+
 guess = balance/2
+#A better upper bound is 1/12 of the sum we would have had to pay had we decided to pay all the debt at the end of the year
+#The accrued debt at the end of the year would have been balance*(1+annualInterestRate)^12
 upper_bound = balance
+# A better bound is possible: balance/12
 lower_bound = 0
 last_guess = guess
-tol = 1e-7
+tol = 0.1
+
 
 while (abs(balanceCalc(balance,annualInterestRate,guess,month))>tol):
     month = 1;
